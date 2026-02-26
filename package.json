@@ -1,0 +1,24 @@
+{
+  "name": "@peerads/web",
+  "version": "0.1.0",
+  "description": "PeerAds Web SDK — unified ad mediation + peer promotion for web apps",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "keywords": ["ads", "adnetwork", "mediation", "peer-promotion", "peerads"],
+  "license": "MIT",
+  "notes": {
+    "ad-networks": {
+      "admob": "Google Publisher Tags loaded dynamically — no npm package needed",
+      "applovin": "AppLovin Exchange JS tag loaded dynamically — no npm package needed",
+      "unity": "Unity Ads JS SDK loaded dynamically — no npm package needed",
+      "meta": "Meta Audience Network has no web SDK — served via iframe ad tag",
+      "ironsource": "IronSource is mobile-only — stubbed with no-op on web"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeerAds Web SDK — Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f5f5f5; color: #1a1a1a; }
+    header { background: #0f172a; color: #fff; padding: 20px 32px; }
+    header h1 { font-size: 1.4rem; font-weight: 700; }
+    header p  { font-size: 0.85rem; color: #94a3b8; margin-top: 4px; }
+    main { max-width: 760px; margin: 32px auto; padding: 0 16px; }
+    section { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px;
+              box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    section h2 { font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: #374151; }
+    button { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;
+             font-size: 0.9rem; font-weight: 500; transition: opacity .15s; }
+    button:hover { opacity: .85; }
+    .btn-primary   { background: #6366f1; color: #fff; }
+    .btn-secondary { background: #10b981; color: #fff; }
+    .btn-warning   { background: #f59e0b; color: #fff; }
+    .btn-neutral   { background: #e5e7eb; color: #374151; margin-right: 8px; }
+    #banner-container { border: 1px dashed #cbd5e1; border-radius: 8px; min-height: 60px;
+                        display: flex; align-items: center; justify-content: center;
+                        color: #94a3b8; font-size: 0.8rem; }
+    #log { background: #0f172a; border-radius: 8px; padding: 16px;
+           height: 200px; overflow-y: auto; font-size: 0.78rem; font-family: monospace; }
+    .log-entry { margin-bottom: 4px; }
+    .log-entry.ok   { color: #34d399; }
+    .log-entry.err  { color: #f87171; }
+    .log-entry.info { color: #94a3b8; }
+    #source-badge { display: inline-block; padding: 2px 8px; border-radius: 99px;
+                    font-size: 0.7rem; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+    .badge-peer { background: #dbeafe; color: #1d4ed8; }
+    .badge-bid  { background: #dcfce7; color: #15803d; }
+    .badge-self { background: #fef3c7; color: #92400e; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    label { font-size: 0.82rem; color: #6b7280; }
+    select, input[type=text] { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px;
+                                font-size: 0.85rem; outline: none; }
+    select:focus, input:focus { border-color: #6366f1; }
+    #auth-status { font-size: 0.82rem; color: #6b7280; }
+    .divider { border: none; border-top: 1px solid #f1f5f9; margin: 16px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PeerAds Web SDK — Demo</h1>
+    <p>Test all ad formats and SDK features from your browser</p>
+  </header>
+
+  <main>
+
+    <!-- 1. Initialization -->
+    <section>
+      <h2>1. SDK Initialization</h2>
+      <div class="row">
+        <label>API Key</label>
+        <input type="text" id="api-key" value="pk_test_REPLACE_ME" style="flex:1; min-width:200px;" />
+        <button class="btn-primary" id="btn-init">Initialize SDK</button>
+      </div>
+      <hr class="divider" />
+      <div class="row">
+        <span id="auth-status">Not initialized</span>
+        <button class="btn-neutral" id="btn-anon-signin">Sign in anonymously</button>
+        <button class="btn-neutral" id="btn-signout" style="display:none">Sign out</button>
+      </div>
+    </section>
+
+    <!-- 2. Banner Ad -->
+    <section>
+      <h2>2. Banner Ad</h2>
+      <div class="row" style="margin-bottom:12px;">
+        <label>Size</label>
+        <select id="banner-size">
+          <option value="320x50">320×50 (Standard)</option>
+          <option value="728x90">728×90 (Leaderboard)</option>
+          <option value="300x250">300×250 (Medium Rect)</option>
+        </select>
+        <button class="btn-primary" id="btn-banner">Load Banner</button>
+        <button class="btn-neutral" id="btn-banner-destroy">Destroy</button>
+      </div>
+      <div id="banner-container">Banner will appear here</div>
+    </section>
+
+    <!-- 3. Interstitial Ad -->
+    <section>
+      <h2>3. Interstitial Ad</h2>
+      <div class="row">
+        <button class="btn-secondary" id="btn-interstitial">Load &amp; Show Interstitial</button>
+        <span id="interstitial-source"></span>
+      </div>
+    </section>
+
+    <!-- 4. Native / Custom Ad Request -->
+    <section>
+      <h2>4. Manual Ad Request</h2>
+      <div class="row" style="margin-bottom:12px;">
+        <label>Slot ID</label>
+        <input type="text" id="slot-id" value="slot-001" />
+        <label>Type</label>
+        <select id="ad-type">
+          <option value="banner">banner</option>
+          <option value="interstitial">interstitial</option>
+          <option value="native">native</option>
+        </select>
+        <button class="btn-secondary" id="btn-request">Request Ad</button>
+      </div>
+      <pre id="ad-response" style="background:#f8fafc; border-radius:6px; padding:12px;
+           font-size:0.78rem; overflow:auto; max-height:140px; color:#374151;">
+Response will appear here…</pre>
+    </section>
+
+    <!-- 5. DAU Reporting -->
+    <section>
+      <h2>5. DAU Reporting</h2>
+      <div class="row">
+        <label>App ID</label>
+        <input type="text" id="dau-app-id" value="your-app-id" />
+        <label>DAU</label>
+        <input type="text" id="dau-value" value="5000" style="width:80px;" />
+        <button class="btn-warning" id="btn-dau">Report DAU</button>
+      </div>
+    </section>
+
+    <!-- 6. Event Log -->
+    <section>
+      <h2>Event Log</h2>
+      <div id="log"><div class="log-entry info">Waiting for SDK events…</div></div>
+    </section>
+
+  </main>
+
+  <script type="module" src="src/main.ts"></script>
+</body>
+</html>

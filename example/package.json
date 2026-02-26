@@ -1,0 +1,18 @@
+{
+  "name": "peerads-web-demo",
+  "private": true,
+  "version": "0.0.1",
+  "description": "PeerAds Web SDK integration demo",
+  "scripts": {
+    "dev":   "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@peerads/web": "^0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0"
+  }
+}
