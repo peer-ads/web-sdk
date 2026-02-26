@@ -1,0 +1,38 @@
+name: Feature Request
+description: Suggest a new feature or improvement for the PeerAds Web SDK
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting, please check [existing issues](https://github.com/peer-ads/web-sdk/issues)
+        and open a [Discussion](https://github.com/peer-ads/web-sdk/discussions) for broader ideas.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Motivation
+      placeholder: I'm trying to do X but the SDK currently doesn't support it because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+    validations:
+      required: false

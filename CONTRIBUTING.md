@@ -8,7 +8,7 @@ This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.
 
 ## Reporting Bugs
 
-Before opening an issue, search [existing issues](https://github.com/peerads/peerads-web/issues) to avoid duplicates. When filing a bug report please include:
+Before opening an issue, search [existing issues](https://github.com/peer-ads/web-sdk/issues) to avoid duplicates. When filing a bug report please include:
 
 - SDK version (`npm list @peerads/web`)
 - Browser / environment (Chrome 120, Node 20, etc.)
@@ -18,12 +18,12 @@ Before opening an issue, search [existing issues](https://github.com/peerads/pee
 
 ## Suggesting Features
 
-Open a [GitHub Discussion](https://github.com/peerads/peerads-web/discussions) before filing a feature request. Describe the problem you're solving, not just the solution.
+Open a [GitHub Discussion](https://github.com/peer-ads/web-sdk/discussions) before filing a feature request. Describe the problem you're solving, not just the solution.
 
 ## Development Setup
 
 ```bash
-git clone https://github.com/peerads/peerads-web.git
+git clone https://github.com/peer-ads/web-sdk.git
 cd peerads-web
 npm install
 npm run dev   # watch mode
